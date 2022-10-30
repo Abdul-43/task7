@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var request = new XMLHttpRequest();
+        request.open('GET', 'https://restcountries.com/v3.1/all')
+        request.send();
+        request.onload = function () {
+            var data = JSON.parse(this.response)
+
+            console.log("Region in Asia : ",data.filter((element) => element.region === "Asia"))
+            console.log("Population less than 2L  : ",data.filter((element) => element.population < 200000))
+            data.forEach(element => {
+                console.log("Name : ",element.name.common)
+                console.log("Flag : ",element.flag)
+                console.log("Capital : ",element.capital)
+            });
+            console.log("Total population in Rest Countries : ",data.reduce((acc, element) => acc + element.population, 0))
+            console.log("Counties uses USD : ",data.filter((element) => {
+                for (let key in element.currencies) {
+                    if (element.currencies[key].name==="United States dollar")
+                        return data;
+                    
+                }
+            }))
+        }
+    </script>
+</body>
+
+</html>
